@@ -10,10 +10,45 @@
 
   <ItemGroup>
     <None Remove="icon.png" />
+    <None Remove="Songs\Pirates of the Caribbean - He%27s a Pirate.mid" />
+    <None Remove="Songs\Queen - Bohemian Rhapsody.mid" />
+    <None Remove="Songs\Star-Wars-Theme-%28From-%27Star-Wars%27%29.mid" />
+    <None Remove="Songs\Super Mario 64 - Medley.mid" />
+    <None Remove="Songs\The Beatles - You Never Give Me Your Money.mid" />
+    <None Remove="Songs\Tokyo Ghoul - Unravel.mid" />
+    <None Remove="Songs\Under-The-Sea-%28From-%27The-Little-Mermaid%27%29-1.mid" />
+    <None Remove="Songs\youre only lonely L.mid" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\Never-Gonna-Give-You-Up.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\Pirates of the Caribbean - He's a Pirate.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\Queen - Bohemian Rhapsody.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\Star-Wars-Theme-(From-'Star-Wars').mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\Super Mario 64 - Medley.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\The Beatles - You Never Give Me Your Money.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\Tokyo Ghoul - Unravel.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\Under-The-Sea-(From-'The-Little-Mermaid')-1.mid">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Songs\youre only lonely L.mid">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

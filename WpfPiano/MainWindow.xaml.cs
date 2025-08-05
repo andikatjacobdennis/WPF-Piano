@@ -7,6 +7,7 @@ using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Button = System.Windows.Controls.Button;
 using InputDevice = Melanchall.DryWetMidi.Multimedia.InputDevice;
+using Path = System.IO.Path;
 using Window = System.Windows.Window;
 
 namespace WpfSynthPiano
@@ -70,6 +72,10 @@ namespace WpfSynthPiano
         // Maps a frequency to its active SignalGenerator
         private Dictionary<double, SignalGenerator> activeNoteGenerators = new();
 
+        // Song playback
+        private DispatcherTimer songProgressTimer;
+        private TimeSpan songDuration;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -79,6 +85,7 @@ namespace WpfSynthPiano
             InitializeInstruments();
             InitializeWaveTypes();
             InitializeOctaveControls();
+            LoadSongsFromFolder();
             DrawKeyboard(startOctave, endOctave);
 
             PianoCanvas.PreviewMouseUp += (s, e) =>
@@ -96,6 +103,12 @@ namespace WpfSynthPiano
             };
 
             PianoCanvas.PreviewMouseMove += PianoCanvas_PreviewMouseMove;
+
+            songProgressTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(500)
+            };
+            songProgressTimer.Tick += SongProgressTimer_Tick;
 
         }
 
@@ -885,6 +898,125 @@ namespace WpfSynthPiano
             midiInDevice?.Dispose();
 
             base.OnClosed(e);
+        }
+
+        private void LoadSongsFromFolder()
+        {
+            try
+            {
+                string songsFolder = "songs";
+                if (!Directory.Exists(songsFolder))
+                {
+                    Directory.CreateDirectory(songsFolder);
+                }
+
+                var midiFiles = Directory.GetFiles(songsFolder, "*.mid")
+                                         .Select(Path.GetFileName)
+                                         .ToList();
+
+                SongsListView.ItemsSource = midiFiles;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load songs: {ex.Message}");
+            }
+        }
+
+        private async void PlaySongButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SongsListView.SelectedItem is not string selectedSong)
+            {
+                MessageBox.Show("Please select a song to play.");
+                return;
+            }
+
+            try
+            {
+                if (currentPlayback != null && currentPlayback.IsRunning)
+                {
+                    await StopPlaybackAsync();
+                    PlaySongButton.Content = "Play Song";
+                    return;
+                }
+
+                string path = Path.Combine("songs", selectedSong);
+
+                if (!File.Exists(path))
+                {
+                    MessageBox.Show($"File not found: {path}");
+                    return;
+                }
+
+                PlaySongButton.Content = "Loading...";
+                PlaySongButton.IsEnabled = false;
+                playbackCts = new CancellationTokenSource();
+
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        var midiFile = MidiFile.Read(path);
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            currentPlayback = midiFile.GetPlayback(midiOutDevice);
+                            currentPlayback.Speed = 1.0;
+                            currentPlayback.TrackNotes = true;
+
+                            currentPlayback.Finished += (s, args) => Dispatcher.Invoke(() => CleanUpSongPlayback());
+                            currentPlayback.NotesPlaybackStarted += OnNotesPlaybackStarted;
+                            currentPlayback.NotesPlaybackFinished += OnNotesPlaybackFinished;
+
+                            PlaySongButton.Content = "Stop Song";
+                            PlaySongButton.IsEnabled = true;
+                            currentPlayback.Start();
+
+                            songDuration = currentPlayback.GetDuration<MetricTimeSpan>();
+                            SongProgressBar.Value = 0;
+                            SongProgressBar.Maximum = songDuration.TotalSeconds;
+                            SongTimeText.Text = $"00:00 / {songDuration:mm\\:ss}";
+
+                            songProgressTimer.Start();
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            MessageBox.Show($"Failed to play song: {ex.Message}");
+                            CleanUpSongPlayback();
+                        });
+                    }
+                }, playbackCts.Token);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error playing song: {ex.Message}");
+                CleanUpSongPlayback();
+            }
+        }
+
+        private void SongProgressTimer_Tick(object sender, EventArgs e)
+        {
+            if (currentPlayback == null || !currentPlayback.IsRunning)
+                return;
+
+            var currentTime = currentPlayback.GetCurrentTime<MetricTimeSpan>();
+            var elapsed = TimeSpan.FromMilliseconds(currentTime.TotalMilliseconds);
+
+            SongProgressBar.Value = Math.Min(elapsed.TotalSeconds, songDuration.TotalSeconds);
+            SongTimeText.Text = $"{elapsed:mm\\:ss} / {songDuration:mm\\:ss}";
+        }
+
+
+        private void CleanUpSongPlayback()
+        {
+            _ = StopPlaybackAsync();
+            PlaySongButton.Content = "Play Song";
+            PlaySongButton.IsEnabled = true;
+            songProgressTimer.Stop();
+            SongProgressBar.Value = 0;
+            SongTimeText.Text = $"00:00 / 00:00";
         }
     }
 

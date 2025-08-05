@@ -150,21 +150,45 @@
                               SelectionChanged="MidiInComboBox_SelectionChanged"/>
                 </StackPanel>
 
-                <!-- Third Row: Recording Buttons -->
+                <!-- Third Row: Recording + Songs -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,15,0,0">
+                    <!-- Recording Controls -->
                     <Button Name="RecordButton"
-                            Content="Start Recording"
-                            Width="140"
-                            Height="30"
-                            Margin="0,0,10,0"
-                            Click="RecordButton_Click"/>
+                        Content="Start Recording"
+                        Width="140"
+                        Height="30"
+                        Margin="0,0,10,0"
+                        Click="RecordButton_Click"/>
 
                     <Button Name="PlayButton"
-                            Content="Play Recording"
-                            Width="140"
-                            Height="30"
-                            Click="PlayButton_Click"
-                            IsEnabled="False"/>
+                        Content="Play Recording"
+                        Width="140"
+                        Height="30"
+                        Click="PlayButton_Click"
+                        IsEnabled="False"/>
+
+                    <!-- Songs List and Playback -->
+                    <TextBlock Text="Songs:" Style="{StaticResource LabelTextStyle}" Margin="30,0,0,0" VerticalAlignment="Center"/>
+                    <ListView Name="SongsListView"
+                        Width="500"
+                        Height="80"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        SelectionMode="Single"/>
+
+                    <Button Name="PlaySongButton"
+                        Content="Play Song"
+                        Width="100"
+                        Height="30"
+                        Margin="10,0,0,0"
+                        Click="PlaySongButton_Click"/>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="30,10,0,0">
+                        <TextBlock Name="SongTimeText" Text="00:00 / 00:00" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="White"/>
+                        <ProgressBar Name="SongProgressBar" Width="300" Height="20" Minimum="0" Maximum="1" Value="0"/>
+                    </StackPanel>
+
                 </StackPanel>
 
             </StackPanel>
