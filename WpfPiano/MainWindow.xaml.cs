@@ -4,13 +4,8 @@ using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Multimedia;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -951,19 +946,19 @@ namespace WpfSynthPiano
                 PlaySongButton.IsEnabled = false;
                 playbackCts = new CancellationTokenSource();
 
-                await Task.Run(() =>
+                await Task.Run(async () =>
                 {
                     try
                     {
                         var midiFile = MidiFile.Read(path);
 
-                        Dispatcher.Invoke(() =>
+                        await Dispatcher.InvokeAsync(() =>
                         {
                             currentPlayback = midiFile.GetPlayback(midiOutDevice);
                             currentPlayback.Speed = 1.0;
                             currentPlayback.TrackNotes = true;
 
-                            currentPlayback.Finished += (s, args) => Dispatcher.Invoke(() => CleanUpSongPlayback());
+                            currentPlayback.Finished += (s, args) => Dispatcher.InvokeAsync(() => CleanUpSongPlayback());
                             currentPlayback.NotesPlaybackStarted += OnNotesPlaybackStarted;
                             currentPlayback.NotesPlaybackFinished += OnNotesPlaybackFinished;
 
