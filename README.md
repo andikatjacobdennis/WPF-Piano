@@ -35,7 +35,7 @@
    ```bash
    git clone https://github.com/andikatjacobdennis/WPF-Piano.git
    cd WPF-Piano
-````
+   ```
 
 2. Open the `.sln` file in **Visual Studio 2022+**.
 
