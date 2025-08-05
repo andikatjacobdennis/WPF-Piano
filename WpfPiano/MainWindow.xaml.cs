@@ -54,8 +54,8 @@ namespace WpfSynthPiano
         // Note configuration
         private readonly string[] whiteNotes = { "C", "D", "E", "F", "G", "A", "B" };
         private readonly string[] blackNotes = { "C#", "D#", "", "F#", "G#", "A#", "" };
-        private int startOctave = 3;
-        private int endOctave = 5;
+        private int startOctave = 1;
+        private int endOctave = 7;
 
         // Recording
         private List<TimedEvent> recordedEvents = new List<TimedEvent>();
