@@ -1,6 +1,6 @@
 # 🎹 WPF Piano
 
-**WPF Piano** is an enhanced virtual piano built using **C#** and **WPF (.NET 9+)**. It simulates a realistic piano keyboard with features like audio synthesis, MIDI support, waveform selection, note recording/playback, and a live oscilloscope. Designed for hobbyists, music learners, and developers interested in audio DSP and modern UI design.
+**WPF Piano** is a virtual synthesizer and piano application built with **C#** and **WPF (.NET 9+)**. It offers real-time audio synthesis, MIDI support, waveform selection, note recording/playback, and a live oscilloscope. Perfect for hobbyists, music learners, and developers exploring audio DSP or modern desktop UI.
 
 ![screenshot](screenshot.png)
 
@@ -8,15 +8,16 @@
 
 ## ✨ Features
 
-- ✅ **Interactive Piano UI** with mouse/touch support
-- 🔊 **Waveform Synthesizer**: Sine, Square, Triangle, Sawtooth
-- 🎚️ **Wave Volume Control** per waveform
-- 🎵 **MIDI In & Out Support**
-- 🧠 **Real-Time Oscilloscope Display**
-- 📼 **Note Recording & Playback**
-- 🎛️ **Octave Range Selector**
-- 🎹 Show/hide **Note Labels**
-- 🎨 Custom styled UI with dark theme
+* ✅ **Interactive Piano UI** with mouse/touch support
+* 🔊 **Waveform Synthesizer**: Sine, Square, Triangle, Sawtooth
+* 🎚️ **Per-Waveform Volume Control**
+* 🎵 **MIDI In & Out Support**
+* 🧠 **Real-Time Oscilloscope**
+* 📼 **Note Recording & Playback**
+* 🎛️ **Octave Range Selector**
+* 🎹 Show/Hide **Note Labels**
+* 📁 **Load and Play MIDI Songs** from `/songs` folder
+* 🎨 Stylish dark-themed UI
 
 ---
 
@@ -24,24 +25,20 @@
 
 ### Requirements
 
-- Windows OS
-- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
-- Visual Studio 2022 or newer (with WPF and .NET desktop development workloads)
+* Windows OS
+* [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
+* Visual Studio 2022 or newer (with WPF and .NET desktop workloads)
 
 ### How to Run
 
-1. Clone the repository:
+```bash
+git clone https://github.com/andikatjacobdennis/WPF-Piano.git
+cd WPF-Piano
+```
 
-   ```bash
-   git clone https://github.com/andikatjacobdennis/WPF-Piano.git
-   cd WPF-Piano
-   ```
-
-2. Open the `.sln` file in **Visual Studio 2022+**.
-
-3. Make sure the target framework is set to `.NET 9` and `UseWPF` is enabled in the `.csproj`.
-
-4. Build and run the project (F5 or Ctrl+F5).
+1. Open the `.sln` file in **Visual Studio 2022+**.
+2. Ensure the target framework is `.NET 9` and WPF is enabled in `.csproj`.
+3. Build and run the project using **F5** or **Ctrl+F5**.
 
 ---
 
@@ -49,23 +46,25 @@
 
 | Control              | Description                                 |
 | -------------------- | ------------------------------------------- |
-| **Instrument**       | Placeholder for instrument presets (future) |
-| **Wave Type**        | Select waveform for audio synthesis         |
-| **Wave Volume**      | Adjust the volume for selected waveform     |
-| **From/Till Octave** | Define active keyboard range                |
-| **MIDI In/Out**      | Select MIDI devices for input/output        |
-| **Show Note Labels** | Toggle note names on piano keys             |
-| **Record / Play**    | Record and playback custom note sequences   |
+| **Instrument**       | (Placeholder) Instrument presets            |
+| **Wave Type**        | Choose waveform shape for synthesis         |
+| **Wave Volume**      | Adjust volume per waveform                  |
+| **From/Till Octave** | Customize the keyboard range                |
+| **MIDI In/Out**      | Select MIDI devices                         |
+| **Show Note Labels** | Display note names on keys                  |
+| **Record / Play**    | Record and playback your own note sequences |
+| **Song List**        | Load & play `.mid` files from `/songs`      |
 
 ---
 
 ## 🎵 Usage Tips
 
-* Click or drag across keys to play.
-* Use the wave type dropdown and wave volume slider to shape your sound.
-* Connect a MIDI controller and select it from **MIDI In** for live input.
-* Use **MIDI Out** to send generated notes to an external synth or DAW.
-* Press **Start Recording**, play notes, then click **Play Recording** to replay.
+* Click or drag across keys to play melodies.
+* Use waveform dropdown + volume slider to design your sound.
+* Connect a MIDI controller via **MIDI In** for live playing.
+* Use **MIDI Out** to route playback to external synths or DAWs.
+* Press **Start Recording**, play, then **Play Recording** to replay.
+* Drop MIDI files into the `/songs` folder to play them in-app.
 
 ---
 
@@ -73,14 +72,15 @@
 
 ```
 WPF-Piano/
-├── MainWindow.xaml           # UI layout
-├── MainWindow.xaml.cs        # Piano logic, event handlers
-├── AudioEngine.cs            # Sound generation (waveforms, ADSR, etc.)
-├── MidiHandler.cs            # MIDI input/output
-├── Oscilloscope.cs           # Oscilloscope rendering
-├── Utils.cs                  # Helper methods
-├── Resources/                # Icons, styles, assets
-├── WPF-Piano.csproj          # .NET 9 WPF project file
+├── MainWindow.xaml            # UI layout
+├── MainWindow.xaml.cs         # Core logic & event handlers
+├── AudioEngine.cs             # Signal generation
+├── MidiHandler.cs             # MIDI input/output setup
+├── Oscilloscope.cs            # Waveform visualization
+├── Utils.cs                   # Helper functions
+├── Resources/                 # Images, styles, assets
+├── songs/                     # MIDI song files
+├── WPF-Piano.csproj           # Project configuration
 ```
 
 ---
@@ -88,16 +88,17 @@ WPF-Piano/
 ## 🔧 To Do / Ideas
 
 * 🎚️ Add **master volume control**
-* 🎧 Add **polyphony limits** for better CPU usage
-* 📈 Improve oscilloscope responsiveness
-* 🎼 Export recordings to **MIDI files**
-* 📱 Touchscreen optimization for tablets
+* 🎧 Limit **polyphony** for performance
+* 📈 Improve oscilloscope performance
+* 🎼 Export recorded sequences to **custom-named MIDI files**
+* 📱 Improve touch support for tablets
+* 🖱️ Add keyboard shortcuts for notes or actions
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests are welcome! If you have ideas for improvement, bug fixes, or new features, feel free to fork and submit a PR.
+Pull requests are welcome! Fork the project, create a branch, and open a PR with your changes or ideas. Bug fixes, refactors, and feature enhancements are all appreciated.
 
 ---
 
@@ -110,7 +111,6 @@ MIT License
 
 ## 🙌 Acknowledgments
 
-* Built with love for music and WPF UI design
-* MIDI features powered by [NAudio](https://github.com/naudio/NAudio)
-* MIDI recording via [DryWetMIDI](https://github.com/melanchall/drywetmidi)
-* Inspired by real-world digital pianos and soft synths
+* Built with love for music and modern UI development
+* Powered by [NAudio](https://github.com/naudio/NAudio) and [DryWetMIDI](https://github.com/melanchall/drywetmidi)
+* Inspired by real-world digital pianos and virtual synths
