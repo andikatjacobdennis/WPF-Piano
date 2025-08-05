@@ -1,6 +1,6 @@
 # 🎹 WPF Piano
 
-**WPF Piano** is an enhanced virtual piano built using **C#** and **WPF (.NET Framework)**. It simulates a realistic piano keyboard with features like audio synthesis, MIDI support, waveform selection, note recording/playback, and a live oscilloscope. Designed for hobbyists, music learners, and developers interested in audio DSP and UI design.
+**WPF Piano** is an enhanced virtual piano built using **C#** and **WPF (.NET 9+)**. It simulates a realistic piano keyboard with features like audio synthesis, MIDI support, waveform selection, note recording/playback, and a live oscilloscope. Designed for hobbyists, music learners, and developers interested in audio DSP and modern UI design.
 
 ![screenshot](screenshot.png)
 
@@ -25,23 +25,21 @@
 ### Requirements
 
 - Windows OS
-- [.NET Framework 4.7.2+](https://dotnet.microsoft.com/download/dotnet-framework/net472)
-- Visual Studio 2019 or newer
+- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
+- Visual Studio 2022 or newer (with WPF and .NET desktop development workloads)
 
 ### How to Run
 
 1. Clone the repository:
 
    ```bash
-   
    git clone https://github.com/andikatjacobdennis/WPF-Piano.git
    cd WPF-Piano
-   
    ```
 
-2. Open the `.sln` file in Visual Studio.
+2. Open the `.sln` file in **Visual Studio 2022+**.
 
-3. Restore NuGet packages if prompted (for MIDI libraries, etc.).
+3. Make sure the target framework is set to `.NET 9` and `UseWPF` is enabled in the `.csproj`.
 
 4. Build and run the project (F5 or Ctrl+F5).
 
@@ -82,6 +80,7 @@ WPF-Piano/
 ├── Oscilloscope.cs           # Oscilloscope rendering
 ├── Utils.cs                  # Helper methods
 ├── Resources/                # Icons, styles, assets
+├── WPF-Piano.csproj          # .NET 9 WPF project file
 ```
 
 ---
@@ -113,4 +112,5 @@ MIT License
 
 * Built with love for music and WPF UI design
 * MIDI features powered by [NAudio](https://github.com/naudio/NAudio)
+* MIDI recording via [DryWetMIDI](https://github.com/melanchall/drywetmidi)
 * Inspired by real-world digital pianos and soft synths
