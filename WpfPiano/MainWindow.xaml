@@ -215,7 +215,7 @@
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Grid>
+                        <Grid Margin="8 0 0 0">
                             <ToggleButton Name="ToggleButton" Grid.Column="2"
                                 ClickMode="Press" Focusable="False"
                                 IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
@@ -464,7 +464,7 @@
                               Width="140"
                               SelectionChanged="WaveTypeComboBox_SelectionChanged" />
 
-                    <TextBlock Text="Volume:" Style="{StaticResource LabelTextStyle}" Margin="20,0,0,0" />
+                    <TextBlock Text="Wave Volume:" Style="{StaticResource LabelTextStyle}" Margin="20,0,0,0" />
                     <Slider Name="VolumeSlider"
                             Style="{StaticResource StyledSlider}"
                             Minimum="0" Maximum="1" Value="0.05"
@@ -565,16 +565,18 @@
                             Margin="10,0,10,0"
                             Click="PlaySongButton_Click" />
 
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
-                        <TextBlock Name="SongTimeText" Text="00:00 / 00:00"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,0,0,5"
-                                   Foreground="{StaticResource PrimaryTextColor}" />
-                        <ProgressBar Name="SongProgressBar"
+                    <Grid VerticalAlignment="Center" Margin="10,0,0,0">
+                        <ProgressBar Name="SongProgressBar" 
                                      Style="{StaticResource StyledProgressBar}"
                                      Width="300"
                                      Minimum="0" Maximum="1" Value="0" />
-                    </StackPanel>
+                        <TextBlock Name="SongTimeText" Text="00:00 / 00:00"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"     
+                           Margin="0,0,0,0"
+                           Foreground="{StaticResource PrimaryTextColor}" />
+
+                    </Grid>
                 </StackPanel>
             </StackPanel>
         </Border>
