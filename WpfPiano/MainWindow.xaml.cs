@@ -852,9 +852,10 @@ namespace WpfSynthPiano
                     {
                         if (key.Value == note.NoteNumber)
                         {
-                            key.Key.Background = key.Key.Background == Brushes.White
-                                ? new SolidColorBrush(Color.FromRgb(210, 210, 210))
-                                : new SolidColorBrush(Color.FromRgb(80, 80, 80));
+                            bool isBlackKey = IsBlackKey((double)key.Key.Tag);
+                            key.Key.Background = isBlackKey
+                                ? new SolidColorBrush(Color.FromRgb(80, 80, 80))
+                                : new SolidColorBrush(Color.FromRgb(210, 210, 210));
                             break;
                         }
                     }
@@ -872,9 +873,9 @@ namespace WpfSynthPiano
                     {
                         if (key.Value == note.NoteNumber)
                         {
-                            key.Key.Background = key.Key.Background.ToString() == "#FFD2D2D2" || key.Key.Background == Brushes.White
-                                ? Brushes.White
-                                : Brushes.Black;
+                            // Check if this is a white key or black key
+                            bool isBlackKey = IsBlackKey((double)key.Key.Tag);
+                            key.Key.Background = isBlackKey ? Brushes.Black : Brushes.White;
                             break;
                         }
                     }
