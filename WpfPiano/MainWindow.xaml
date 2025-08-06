@@ -7,6 +7,7 @@
         Title="WPF Piano" Height="650" Width="1300"
         Background="#18181A"
         Icon="/icon.png"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
