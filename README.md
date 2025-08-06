@@ -68,23 +68,6 @@ cd WPF-Piano
 
 ---
 
-## 📁 Project Structure
-
-```
-WPF-Piano/
-├── MainWindow.xaml            # UI layout
-├── MainWindow.xaml.cs         # Core logic & event handlers
-├── AudioEngine.cs             # Signal generation
-├── MidiHandler.cs             # MIDI input/output setup
-├── Oscilloscope.cs            # Waveform visualization
-├── Utils.cs                   # Helper functions
-├── Resources/                 # Images, styles, assets
-├── songs/                     # MIDI song files
-├── WPF-Piano.csproj           # Project configuration
-```
-
----
-
 ## 🔧 To Do / Ideas
 
 * 🎚️ Add **master volume control**
